@@ -1,0 +1,100 @@
+GIT
+  remote: git://github.com/padrino/padrino-framework.git
+  revision: 8a853f0a2a7ebec83580d40808433784901577e8
+  specs:
+    padrino (0.9.18)
+      padrino-admin (= 0.9.18)
+      padrino-core (= 0.9.18)
+      padrino-gen (= 0.9.18)
+      padrino-helpers (= 0.9.18)
+      padrino-mailer (= 0.9.18)
+    padrino-admin (0.9.18)
+      padrino-core (= 0.9.18)
+      padrino-helpers (= 0.9.18)
+    padrino-core (0.9.18)
+      activesupport (>= 3.0.0)
+      http_router (~> 0.4.0)
+      sinatra (>= 1.1.0)
+      thor (>= 0.14.3)
+      tzinfo
+    padrino-gen (0.9.18)
+      bundler (>= 1.0.2)
+      git
+      padrino-core (= 0.9.18)
+    padrino-helpers (0.9.18)
+      i18n (>= 0.4.1)
+      padrino-core (= 0.9.18)
+    padrino-mailer (0.9.18)
+      mail (>= 2.2.0)
+      padrino-core (= 0.9.18)
+
+GEM
+  remote: http://rubygems.org/
+  specs:
+    activemodel (3.0.1)
+      activesupport (= 3.0.1)
+      builder (~> 2.1.2)
+      i18n (~> 0.4.1)
+    activesupport (3.0.1)
+    bcrypt-ruby (2.1.2)
+    builder (2.1.2)
+    couchrest (1.0.1)
+      json (>= 1.4.6)
+      mime-types (>= 1.15)
+      rest-client (>= 1.5.1)
+    couchrest_model (1.0.0.beta7)
+      activemodel (>= 3.0.0.beta4)
+      activesupport (>= 2.3.5)
+      couchrest (>= 1.0.0.beta)
+      mime-types (>= 1.15)
+    daemons (1.1.0)
+    eventmachine (0.12.10)
+    git (1.2.5)
+    haml (3.0.23)
+    http_router (0.4.1)
+      rack (>= 1.0.0)
+      url_mount (~> 0.2.1)
+    i18n (0.4.2)
+    json (1.4.6)
+    json_pure (1.4.6)
+    mail (2.2.9)
+      activesupport (>= 2.3.6)
+      i18n (~> 0.4.1)
+      mime-types (~> 1.16)
+      treetop (~> 1.4.8)
+    mime-types (1.16)
+    polyglot (0.3.1)
+    rack (1.2.1)
+    rack-flash (0.1.1)
+      rack
+    rake (0.8.7)
+    rest-client (1.6.1)
+      mime-types (>= 1.16)
+    sinatra (1.1.0)
+      rack (~> 1.1)
+      tilt (~> 1.1)
+    thin (1.2.7)
+      daemons (>= 1.0.9)
+      eventmachine (>= 0.12.6)
+      rack (>= 1.0.0)
+    thor (0.14.4)
+    tilt (1.1)
+    treetop (1.4.8)
+      polyglot (>= 0.3.1)
+    tzinfo (0.3.23)
+    url_mount (0.2.1)
+      rack
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  bcrypt-ruby
+  couchrest
+  couchrest_model
+  haml
+  json_pure
+  padrino!
+  rack-flash
+  rake
+  thin

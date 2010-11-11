@@ -1,0 +1,35 @@
+.group
+  =f.label :file_name
+  =f.error_message_on :file_name
+  =f.text_field :file_name, :class => :text_field
+  %span.description Ex: the name of the file, what you want to call it when it is actually downloaded, include extension. a_flyer.pdf
+
+.group
+  =f.label "file"
+  =f.file_field :file, :class => :file_field
+  - unless @flyer["_attachments"].nil?
+    %br
+    %span.description= "current file: #{@flyer["_attachments"].keys.first}"
+
+- unless @flyer.file_name.nil?
+  .group
+    %p Select which accounts have access
+    - if @accounts.empty?
+      %p
+        = link_to "create some user accounts 1st", url(:accounts, :new)
+    - else
+      %input#flyer_account_ids{ :type => "hidden", :value => @flyer.account_ids.join(","), :name => "flyer[account_ids]" }
+      %ul.check_box
+        - @accounts.each do |account|
+          %li
+            - if @flyer.account_ids.include?(account["id"])
+              = check_box_tag "checkbox", :value => account["id"], :class => "check_box account_ids", :id => account["id"], :checked => "checked"
+            - else
+              = check_box_tag "checkbox", :value => account["id"], :class => "check_box account_ids", :id => account["id"]
+            = (label_tag account["value"], :for => account["id"], :class => :check_box).gsub(":", "")
+  
+.group.navform.wat-cf
+  =f.submit pat(:save), :class => :button
+  =f.submit pat(:cancel), :onclick => "window.location='#{url(:flyers, :index)}';return false", :class => :button
+
+=javascript_include_tag :ext_core, :account_select

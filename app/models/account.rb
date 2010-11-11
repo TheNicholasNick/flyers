@@ -1,0 +1,84 @@
+require 'digest/sha1'
+
+class Account < CouchRest::Model::Base
+  use_database COUCHDB
+
+  attr_accessor :password, :password_confirmation
+
+  # Properties
+  property :name
+  property :surname
+  property :email
+  property :crypted_password
+  property :role
+
+  # Views
+  view_by :email
+  view_by :id,
+    :map => "function(doc) {\n if ((doc['couchrest-type'] == 'Account') && doc['_id']) {\n emit(doc['_id'], null);\n }\n}\n"
+
+  view_by :role_name, :map => <<MAP
+function(doc) {
+  if(doc["couchrest-type"] == "Account" && doc.role) {
+    var name = doc.name + " " + doc.surname;
+    emit(doc.role, name);
+  }
+}
+MAP
+  
+
+  # Validations
+  validates_presence_of     :email, :role
+  validates_presence_of     :password,                   :if => :password_required
+  validates_presence_of     :password_confirmation,      :if => :password_required
+  validates_length_of       :password, :within => 4..40, :if => :password_required
+  validates_confirmation_of :password,                   :if => :password_required
+  validates_length_of       :email,    :within => 3..100
+  validates_uniqueness_of   :email,    :view => "by_email"
+  validates_format_of       :email,    :with => /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i
+  validates_format_of       :role,     :with => /[A-Za-z]/
+
+  # Callbacks
+  before_save :encrypt_password
+
+  ##
+  # This method is for authentication purpose
+  #
+  def self.authenticate(email, password)
+    email_array = self.by_email :key => email
+    account = email_array[0]
+    account && account.has_password?(password) ? account : nil
+  end
+
+  ##
+  # This method is used to retrieve the first record by id without raise errors if not found.
+  #
+  def self.find_by_id(id)
+    id_array = self.by_id :key => id
+    id_array[0]
+  end
+
+  def has_password?(password)
+    ::BCrypt::Password.new(crypted_password) == password
+  end
+
+  private
+    def encrypt_password
+      self.crypted_password = ::BCrypt::Password.create(password)
+    end
+
+    def password_required
+      crypted_password.blank? || !password.blank?
+    end
+
+    def email_is_unique
+      account = Account.by_email(:key => self.email, :limit => 1)
+      return true if account.empty? # didn't find email in the database
+      account = account[0]
+      if self.has_key?("_id")
+        # there is an id, make sure updates are being applied to same account
+        return true if self["_id"] == account["_id"]
+      end
+      [false, "Email has already been taken"]
+    end
+end

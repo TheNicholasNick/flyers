@@ -1,0 +1,6 @@
+--- 
+:renderer: haml
+:mock: none
+:test: none
+:script: none
+:orm: couchrest

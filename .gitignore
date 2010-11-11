@@ -1,0 +1,10 @@
+.DS_Store
+.bundle
+vendor/bundle
+log/*
+tmp/*
+TAGS
+*~
+.#*
+*.log
+config/database.rb

@@ -1,0 +1,15 @@
+.block
+  .secondary-navigation
+    %ul.wat-cf
+      %li.first=link_to pat(:list), url(:flyers, :index)
+      %li=link_to pat(:new), url(:flyers, :new)
+      %li.active=link_to pat(:edit), url(:flyers, :edit, :id => @flyer.id)
+  .content
+    %h2.title
+      =pat(:edit)
+      =mt(:flyer)
+    .inner
+      -form_for :flyer, url(:flyers, :update, :id => @flyer.id), :method => :put, :class => :form, :multipart => true  do |f|
+        =partial "flyers/form", :locals => { :f => f }
+
+-content_for :sidebar, partial("base/sidebar")

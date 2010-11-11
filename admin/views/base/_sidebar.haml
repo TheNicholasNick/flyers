@@ -1,0 +1,11 @@
+.block
+  %h3 Fylers I Can Access
+  - if current_account.role.eql?("admin")
+    .content
+      %p
+        Logged in as admin.
+        %br
+        = link_to "Login as user", url(:sessions, :destroy)
+    
+  - else
+    %ul.navigation

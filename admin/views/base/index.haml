@@ -1,0 +1,27 @@
+#block-text.block
+  .content
+    %h2.title Simple File Attachemnts with CouchDB ruby lib couchrest / sinatra
+    .inner
+      %p.first
+        This application shows how to do a simple file attachment with couchdb/padrino.
+        %br
+        I'm calling these attachements "Flyers".
+      %p
+        Create some Accounts of role "user".
+        %br
+        Then create some flyers and while creating them give different people access to different flyers.
+      %p
+        Once everything is created login as each user and notice how user only have access to flyers they have been granted access to.
+        %br
+        %span.gray.small
+          (box in the sidebar on the right)
+      %p
+        There is no error handling, you need to fill in the fields properly, specify filename with extension (avoid spaces), upload a file, etc.
+      %hr
+      %p
+        Latest code available at
+        %a{:href => "http://github.com/SoreGums/flyers", :target => "github"} github.com/SoreGums/flyers
+      %p
+        I created this to explain how I wanted something done in an app being built, as it has nothing proprietary in it, shared it :)
+
+-content_for :sidebar, partial("base/sidebar")
