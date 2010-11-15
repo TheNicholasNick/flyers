@@ -12,9 +12,9 @@ Admin.controllers :flyers do
 
   post :create do
     if params[:flyer][:file_name].empty?
-      @flyer = Flyer.new(:file_name => params[:flyer][:file][:filename])
+      @flyer = Flyer.new(:file_name => params[:flyer][:file][:filename], :account_ids => [])
     else
-      @flyer = Flyer.new(:file_name => params[:flyer][:file_name])
+      @flyer = Flyer.new(:file_name => params[:flyer][:file_name], :account_ids => [])
     end
     if @flyer.save
       # save attachement if there was a file uploaded
