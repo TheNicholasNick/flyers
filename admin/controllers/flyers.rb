@@ -44,7 +44,6 @@ Admin.controllers :flyers do
 
   put :update, :with => :id do
     account_ids = params[:flyer][:account_ids].split(",").collect{|x| x if x != ""}.compact
-    p account_ids
     @flyer = Flyer.get(params[:id])
     if @flyer.update_attributes(:file_name => params[:flyer][:file_name], :account_ids => account_ids)
       # save attachement if there was a file uploaded
