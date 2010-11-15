@@ -2,10 +2,7 @@
 
 A simple ruby applicaiton to demonstrate a way to get files in and out of couchdb via couchrest
 
-I was having trouble verifying that sendgrid was working with an application that I wasn't developing.
-Needed a simple app that I could redirect specific URI's to, that could give tell me sendgrid was doing what is was suppose to.
-The application is being developed in Java and is running in Tomcat fronted by nginx.
-So all I had to do was put a location rule in nginx and proxy the request to this app instead of Tomcat.
+I created this to demonstrate how I wanted something done in another app being built. Hopefully it means they do it right the 1st time.
 
 ## Running
 

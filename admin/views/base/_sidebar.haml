@@ -1,11 +1,17 @@
 .block
-  %h3 Fylers I Can Access
+  %h3 Flyers You Can Access
   - if current_account.role.eql?("admin")
     .content
       %p
         Logged in as admin.
         %br
         = link_to "Login as user", url(:sessions, :destroy)
-    
   - else
-    %ul.navigation
+    - rows = Flyer.by_account(:key => current_account["_id"], :raw => true)["rows"]
+    - if rows.empty?
+      .content
+        %p Admin doesn't like you...
+    - else
+      %ul.navigation
+        - rows.each do |row|
+          %li= link_to row["value"][1], url(:flyers, :attachment, :id => row["id"], :filename => row["value"][0]), :method => :get
